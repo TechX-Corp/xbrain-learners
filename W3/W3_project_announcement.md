@@ -248,7 +248,7 @@ Bonus is only scored if all four must-haves AND the Evidence Pack are complete. 
 
 ## What "Done" Looks Like on Friday
 
-Before you present, **post your Evidence Pack commit link** (`docs/W3_evidence.md`) in the trainer Slack channel. No link posted = Criterion IV pre-flagged at cap 2 before you even start.
+Before you present, **post your Evidence Pack commit link** (`docs/W3_evidence.md`) in the trainer WhatsApp channel. No link posted = Criterion IV pre-flagged at cap 2 before you even start.
 
 Your group's Friday presentation covers four parts in 10-12 minutes total. **All slides are derived from your Evidence Pack markdown** — open the markdown once at the start and treat the slides as a reading order through it.
 
