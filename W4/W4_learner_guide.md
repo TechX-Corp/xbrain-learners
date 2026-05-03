@@ -15,7 +15,7 @@ This week you combine multiple services into one complete system — S3 for docu
 This week on AI/ML, you will learn about:
 
 - AI fundamentals: traditional programming vs machine learning, how models learn from data (training, weights, backpropagation, overfitting)
-- The AI/ML landscape: supervised / unsupervised / reinforcement learning, deep learning architectures (CNN, RNN, Transformer, GAN), and the road from classical ML to GenAI
+- The AI/ML landscape: supervised / unsupervised / reinforcement learning, deep learning architectures (CNN, RNN, Transformer, GAN), the road from classical ML to GenAI
 - How LLMs work: tokenization, embedding, attention mechanism, context window, temperature
 - Core limitations of LLMs and patterns that address them
 - Evaluation & trust: how to assess AI output quality
@@ -31,7 +31,7 @@ This week on AI/ML, you will learn about:
 | **Bedrock Agents** | (Optional) Managed tool use — agent decides when to retrieve vs call tools |
 | **OpenSearch Serverless** | Vector store behind Bedrock KB — stores embeddings, performs similarity search. Not used directly but is the engine behind every retrieve call |
 | **DynamoDB** | Store conversation state for L4 (memory) |
-| **RDS/Aurora or SQLite** | Store structured data (costs, incidents, SLA targets) for L3 tool queries |
+| **Database (RDS/Aurora/SQLite/DynamoDB)** | Store structured data (costs, incidents, SLA targets) for L3 tool queries |
 | **Lambda** | Run tool functions when using Bedrock Agents — glue between LLM and data |
 
 ---
@@ -138,7 +138,7 @@ On a whiteboard or paper, sketch:
 
 ## Thursday: Build L1 → L2 → L3
 
-### L1 — Simple RAG (target: working by 12:00)
+### L1 — Simple RAG
 
 **What you're building:** A system that takes a question, searches your knowledge base, and returns an answer with source citation.
 
@@ -177,7 +177,7 @@ On a whiteboard or paper, sketch:
 
 **If all three return correct answers with source citations, L1 is done. Move to L2.**
 
-### L2 — Advanced RAG (target: working by 15:00)
+### L2 — Advanced RAG
 
 **What changes from L1:** Your system now handles questions that span multiple documents or have version conflicts.
 
@@ -202,7 +202,7 @@ On a whiteboard or paper, sketch:
 
 **If your system resolves the rate limit conflict correctly, L2 is working.**
 
-### L3 — Tool-Augmented RAG (target: first tool call by 17:00)
+### L3 — Tool-Augmented RAG
 
 **What changes from L2:** Your system can now call external tools to get data that is NOT in any document.
 
@@ -376,22 +376,6 @@ For each level, you need:
 | Live Demo (L1-L4) | 50% |
 | Individual QnA | 30% |
 | Architecture & Evidence Pack | 20% |
-
----
-
-## Key AWS Services
-
-| Service | What you use it for |
-|---------|-------------------|
-| **Amazon S3** | Store the 36 knowledge base docs |
-| **Bedrock Knowledge Bases** | Managed RAG: S3 → chunking → embeddings → vector search → retrieval |
-| **Bedrock (Claude Sonnet)** | The LLM that generates answers |
-| **Bedrock Agents** | (Optional) Managed tool use — agent decides when to retrieve vs call tools |
-| **OpenSearch Serverless** | Vector store behind Bedrock KB |
-| **DynamoDB** | Conversation state storage for L4 |
-| **RDS/Aurora or SQLite** | Structured data from seed script |
-| **Lambda** | Tool execution (if using Bedrock Agents) |
-| **CloudWatch** | Logs — useful for debugging tool calls |
 
 ---
 

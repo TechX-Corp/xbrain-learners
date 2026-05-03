@@ -16,13 +16,13 @@ deadline: "Thứ Sáu 2026-05-08, thuyết trình nhóm"
 
 Các bạn sẽ xây dựng một AI system trả lời câu hỏi về **GeekBrain** — một fintech startup đang vận hành sáu production service. Các bạn sẽ nhận được một data package gồm: các file markdown mô tả cách công ty hoạt động, CSV files chứa lịch sử cost và performance, một seed script để load CSV vào database, và một monitoring API trả về live system state.
 
-**System của bạn phải trả lời câu hỏi ở năm cấp độ tăng dần.** Mỗi cấp độ đòi hỏi một khả năng mà cấp trước chưa có. Các cấp độ được định nghĩa bởi những gì câu hỏi yêu cầu — không phải bởi architecture phải xây dựng như thế nào.
+**System của bạn phải trả lời câu hỏi ở bốn cấp độ tăng dần.** Mỗi cấp độ đòi hỏi một khả năng mà cấp trước chưa có. Các cấp độ được định nghĩa bởi những gì câu hỏi yêu cầu — không phải bởi architecture phải xây dựng như thế nào.
 
-**System của bạn phải trả lời câu hỏi ở năm cấp độ tăng dần.** Chúng tôi cung cấp data. Bạn thiết kế architecture.
+**System của bạn phải trả lời câu hỏi ở bốn cấp độ tăng dần.** Chúng tôi cung cấp data. Bạn thiết kế architecture.
 
 ---
 
-## Năm cấp độ
+## Bốn cấp độ
 
 Các cấp độ có tính tích lũy. Mỗi cấp xây dựng trên cấp trước. Không thể bỏ qua cấp — L3 yêu cầu nền tảng L1-L2 đang hoạt động, và L4 yêu cầu tools từ L3 phải hoạt động được.
 
@@ -404,8 +404,8 @@ Ví dụ: L3 score 4/5 → (4/5) * 4.0 = 3.2 điểm
 | Ngày | Diễn ra gì |
 |-----|-------------|
 | **Thứ Ba** | Nhận data package. Đọc tất cả documents. Start monitoring API và hit từng endpoint. Chạy seed script. Vẽ architecture trước khi viết code. |
-| **Thứ Năm 09:00-10:00** | Giới thiệu: RAG systems, tools, memory, agent reasoning. |
-| **Thứ Năm 10:00-18:00** | Build. Làm L1 chạy được trước. Không bắt đầu L3 cho đến khi L1 ổn định. |
+| **Thứ Năm 08:30-10:00** | Giới thiệu: RAG systems, tools, memory, agent reasoning. |
+| **Thứ Năm 13:00-17:00** | Build. Làm L1 chạy được trước. Không bắt đầu L3 cho đến khi L1 ổn định. |
 | **Thứ Sáu 08:00-12:00** | Hoàn thiện system, viết Evidence Pack, chuẩn bị slides. Post Evidence Pack commit link lên Slack trước slot của nhóm. |
 | **Thứ Sáu 14:00-18:00** | Thuyết trình (~10-12 phút mỗi nhóm). |
 

@@ -112,12 +112,12 @@ You can build each layer yourself — handle retrieval, tool routing, orchestrat
 **Step-by-step to get L3 running:**
 
 1. **Set up the data layer first:**
-   - Run `seed_data.py` to load CSVs into DynamoDB: `python seed_data.py` (creates tables automatically)
+   - Run `seed_data.py` to load CSVs into your database: `python seed_data.py`
    - Start `monitoring_api.py` locally (`uvicorn monitoring_api:app --port 8000`)
-   - Test both: check your DynamoDB tables in the console, hit each API endpoint
+   - Test both: query your database, hit each API endpoint
 
 2. **Build at least 2 tool functions:**
-   - **Tool 1 — Database Query:** Takes a table name and filters, queries DynamoDB, returns matching items. This covers cost questions, incident queries, SLA lookups.
+   - **Tool 1 — Database Query:** Takes a SQL query string, executes against the database, returns rows. This covers cost questions, incident queries, SLA lookups.
    - **Tool 2 — Service Metrics:** Calls `GET /metrics/{service_name}` on the monitoring API, returns current latency, error rate, requests/min.
 
 3. **Register tools with your LLM:**
@@ -392,7 +392,7 @@ The 10-point grade comes from:
 ## Rules
 
 1. **Architecture is open.** Any approach, any framework, any LLM.
-2. **LLM choice is open.** OpenAI, Claude, Gemini, open-source, self-hosted — your call.
+2. **LLM choice is open on AWS Bedrock.**
 3. **No hardcoded answers.** Trainers ask questions outside the example set.
 4. **Every team gets the same data package.**
 5. **AI-assisted coding is allowed and expected.**
@@ -404,8 +404,8 @@ The 10-point grade comes from:
 | Day | What happens |
 |-----|-------------|
 | **Tuesday** | Receive data package. Read all documents. Start the monitoring API and hit every endpoint. Run the seed script. Draw your architecture before writing code. |
-| **Thursday 09:00-10:00** | Introduction: RAG systems, tools, memory, agent reasoning. |
-| **Thursday 10:00-18:00** | Build. Get L1 working first. Do not start L3 until L1 is reliable. |
+| **Thursday 08:30-10:00** | Introduction: RAG systems, tools, memory, agent reasoning. |
+| **Thursday 13:00-17:00** | Build. Get L1 working first. Do not start L3 until L1 is reliable. |
 | **Friday 08:00-12:00** | Finalize system, write Evidence Pack, prepare slides. Post Evidence Pack commit link to Slack before your slot. |
 | **Friday 14:00-18:00** | Presentations (~10-12 min per group). |
 
@@ -436,8 +436,8 @@ Follow this order. Do not skip ahead.
 1. Read every document in the knowledge base. Which ones cover the same topic? Where do they conflict? (You need this for L2.)
 2. Start the monitoring API: `pip install -r requirements.txt && uvicorn monitoring_api:app --port 8000`
 3. Hit every API endpoint manually. Write down what data is ONLY available from the API.
-4. Run the seed script: `python seed_data.py` — this creates 4 DynamoDB tables and loads the CSVs.
-5. Check your data: open the DynamoDB console, go to `geekbrain-monthly-costs`, scan the table — you should see PaymentGW at 7500 for March 2026.
+4. Run the seed script: `python seed_data.py` — this loads the CSVs into your database.
+5. Check your data: query the database — you should see PaymentGW at 7500 for March 2026.
 
 ### Day 2 (Thursday): Build L1 → L2 → L3
 
