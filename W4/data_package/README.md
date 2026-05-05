@@ -1,33 +1,33 @@
 # GeekBrain Data Package
 
-Structured data and tooling for the GeekBrain AI chatbot evaluation system.
+Dữ liệu và công cụ cho hệ thống AI chatbot GeekBrain (dùng cho đánh giá tuần 4).
 
-## Contents
+## Cấu trúc thư mục
 
 ```
 data_package/
-├── structured_data/
-│   ├── monthly_costs.csv    # AWS cost breakdown per service, Oct 2025 – Mar 2026
-│   ├── incidents.csv        # 8 incident records (INC-001 through INC-008)
-│   ├── sla_targets.csv      # SLA targets: availability, latency p99, error rate per service
-│   └── daily_metrics.csv    # 90-day daily metrics Jan–Mar 2026 (540 rows, 6 services)
-├── scripts/
-│   ├── monitoring_api.py    # FastAPI monitoring API (live status, metrics, incidents)
-│   ├── seed_data.py         # CSV → PostgreSQL or SQLite loader
-│   └── requirements.txt     # Python dependencies
-└── knowledge_base/          # Markdown docs for RAG system (36 documents)
+├── structured_data/          # Dữ liệu có cấu trúc (CSV) — dùng cho L3 tool queries
+│   ├── monthly_costs.csv     # Chi phí AWS theo service, Oct 2025 – Mar 2026
+│   ├── incidents.csv         # 8 bản ghi incident (INC-001 → INC-008)
+│   ├── sla_targets.csv       # SLA targets: availability, latency p99, error rate
+│   └── daily_metrics.csv     # Metrics hàng ngày Jan–Mar 2026 (540 rows, 6 services)
+├── scripts/                  # Scripts hỗ trợ
+│   ├── monitoring_api.py     # FastAPI — trả live status, metrics, incidents
+│   ├── seed_data.py          # Load CSV → SQLite hoặc PostgreSQL
+│   └── pyproject.toml        # Python dependencies (dùng uv sync)
+└── knowledge_base/           # 36 tài liệu markdown — dùng cho RAG (L1, L2)
 ```
 
-## CSV Descriptions
+## Mô tả CSV
 
-| File | Rows | Key columns |
-|------|------|-------------|
-| monthly_costs.csv | 36 (6 services × 6 months) | service, month, compute/storage/network/third_party/total cost |
+| File | Số dòng | Cột chính |
+|------|---------|-----------|
+| monthly_costs.csv | 36 (6 services × 6 tháng) | service, month, compute/storage/network/third_party/total cost |
 | incidents.csv | 8 | incident_id, service, date, severity, duration_minutes, root_cause, resolution |
 | sla_targets.csv | 18 (6 services × 3 metrics) | service, metric, target, measurement_window |
-| daily_metrics.csv | 540 (6 services × 90 days) | date, service, latency_p99_ms, error_rate_percent, requests_per_minute, availability_percent |
+| daily_metrics.csv | 540 (6 services × 90 ngày) | date, service, latency_p99_ms, error_rate_percent, requests_per_minute, availability_percent |
 
-## Start the Monitoring API
+## Chạy Monitoring API
 
 ```bash
 cd scripts/
@@ -35,32 +35,32 @@ uv sync
 uv run uvicorn monitoring_api:app --reload --port 8000
 ```
 
-API root at http://localhost:8000 — lists all available endpoints.
+API root tại http://localhost:8000 — liệt kê tất cả endpoints.
 
-Key endpoints:
-- `GET /services` — list of all 6 services
-- `GET /status/{service_name}` — uptime and active alerts
-- `GET /metrics/{service_name}` — live latency, error rate, CPU/memory (±5% jitter per call)
-- `GET /incidents` — all 8 incidents
-- `GET /incidents/{service_name}` — filtered by service
+Các endpoint chính:
+- `GET /services` — danh sách 6 services
+- `GET /status/{service_name}` — uptime và active alerts
+- `GET /metrics/{service_name}` — latency, error rate, CPU/memory hiện tại (±5% jitter mỗi lần gọi)
+- `GET /incidents` — toàn bộ 8 incidents
+- `GET /incidents/{service_name}` — lọc theo service
 
-## Seed the Database
+## Seed Database
 
-SQLite (no setup required):
+SQLite (không cần setup thêm):
 ```bash
 cd scripts/
-python seed_data.py --db-type sqlite --sqlite-path geekbrain.db
+uv run python seed_data.py --db-type sqlite --sqlite-path geekbrain.db
 ```
 
 PostgreSQL:
 ```bash
-python seed_data.py --db-type postgres --db-url postgresql://user:pass@localhost/geekbrain
+uv run python seed_data.py --db-type postgres --db-url postgresql://user:pass@localhost/geekbrain
 ```
 
-Prints row count summary on completion.
+In tổng số rows đã load khi hoàn thành.
 
 ## Knowledge Base
 
-The `knowledge_base/` directory contains 36 markdown documents for the RAG system covering company overview, team structure, service architecture, API reference, deployment and incident response policies, postmortems, security policy, SLA policy, Q1 review notes, onboarding guide, capacity planning, and cost optimization initiative.
+Thư mục `knowledge_base/` chứa 36 tài liệu markdown cho hệ thống RAG, bao gồm: company overview, team structure, service architecture, API reference, deployment policy, incident response policy, postmortems, security policy, SLA policy, Q1 review notes, onboarding guide, capacity planning, cost optimization.
 
-**Data boundary:** Docs contain qualitative descriptions and policies only — no exact dollar amounts or daily metric values. Exact numbers live exclusively in the CSV files and monitoring API.
+**Ranh giới dữ liệu:** Tài liệu chỉ chứa mô tả định tính và chính sách — KHÔNG có số tiền cụ thể hoặc giá trị metrics hàng ngày. Các con số chính xác nằm trong CSV files và monitoring API.

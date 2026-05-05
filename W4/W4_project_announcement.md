@@ -196,7 +196,7 @@ Documents change. A knowledge base synced once becomes stale. Build a mechanism 
    - `sla_targets.csv` — SLA targets per service per metric
    - `daily_metrics.csv` — daily latency, error rate, and request volume (Jan - Mar 2026)
 
-3. **Seed script** (`seed_data.py`) — loads the CSV files into DynamoDB tables. Creates the tables automatically if they don't exist. Run the script once and your data is ready.
+3. **Seed script** (`seed_data.py`) — loads the CSV files into SQLite (default) or PostgreSQL. Creates the tables automatically if they don't exist. Run the script once and your data is ready.
 
 4. **Monitoring API** (`monitoring_api.py`) — a Python script you run locally. It returns live system state as JSON. Hit every endpoint before you start building — there is data available from the API that is not in any document.
 
@@ -434,9 +434,9 @@ Follow this order. Do not skip ahead.
 ### Day 1 (Tuesday): Explore the data
 
 1. Read every document in the knowledge base. Which ones cover the same topic? Where do they conflict? (You need this for L2.)
-2. Start the monitoring API: `pip install -r requirements.txt && uvicorn monitoring_api:app --port 8000`
+2. Start the monitoring API: `cd data_package/scripts && uv sync && uv run uvicorn monitoring_api:app --port 8000`
 3. Hit every API endpoint manually. Write down what data is ONLY available from the API.
-4. Run the seed script: `python seed_data.py` — this loads the CSVs into your database.
+4. Run the seed script: `uv run python seed_data.py --db-type sqlite` — this loads the CSVs into your database.
 5. Check your data: query the database — you should see PaymentGW at 7500 for March 2026.
 
 ### Day 2 (Thursday): Build L1 → L2 → L3

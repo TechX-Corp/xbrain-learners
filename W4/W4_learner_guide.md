@@ -81,8 +81,8 @@ All 36 documents are in `knowledge_base/`. Read every one. As you read, note:
 
 ```bash
 cd data_package/scripts
-pip install -r requirements.txt
-uvicorn monitoring_api:app --port 8000
+uv sync
+uv run uvicorn monitoring_api:app --port 8000
 ```
 
 Then hit every endpoint:
@@ -102,7 +102,7 @@ curl http://localhost:8000/incidents/PaymentGW
 
 ```bash
 cd data_package/scripts
-python seed_data.py --db-type sqlite
+uv run python seed_data.py --db-type sqlite
 ```
 
 Then query it:
