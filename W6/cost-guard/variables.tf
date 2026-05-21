@@ -28,6 +28,30 @@ variable "schedule_expression" {
   default     = "cron(0 18 * * ? *)"
 }
 
+variable "budget_name" {
+  description = "Name of the daily AWS Budget that drives the SNS -> Lambda cost-control path."
+  type        = string
+  default     = "w6-cost-guard-daily-150-usd"
+}
+
+variable "budget_limit_usd" {
+  description = "Daily AWS Budget limit in USD for the W6 hard cost cap path."
+  type        = string
+  default     = "150"
+}
+
+variable "budget_alert_threshold_percent" {
+  description = "Budget notification threshold percentage. 100 means notify when actual daily spend is greater than the configured USD limit."
+  type        = number
+  default     = 100
+}
+
+variable "budget_sns_topic_name" {
+  description = "SNS topic name for AWS Budgets notifications that invoke the Cost Guard Lambda."
+  type        = string
+  default     = "w6-cost-guard-budget-alerts"
+}
+
 variable "dry_run" {
   description = "When true, Lambda reports resources that would be stopped without calling StopInstances/StopDBInstance. Set false for acceptance demo."
   type        = bool

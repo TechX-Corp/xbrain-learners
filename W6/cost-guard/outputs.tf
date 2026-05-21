@@ -22,3 +22,13 @@ output "schedule_rule_name" {
   description = "EventBridge rule that invokes the Cost Guard Lambda."
   value       = aws_cloudwatch_event_rule.cost_guard_schedule.name
 }
+
+output "budget_name" {
+  description = "Daily AWS Budget wired to SNS -> Cost Guard Lambda."
+  value       = aws_budgets_budget.daily_cost_guard.name
+}
+
+output "budget_sns_topic_arn" {
+  description = "SNS topic that receives AWS Budgets notifications and invokes the Cost Guard Lambda."
+  value       = aws_sns_topic.cost_guard_budget.arn
+}

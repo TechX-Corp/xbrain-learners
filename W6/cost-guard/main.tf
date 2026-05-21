@@ -98,6 +98,39 @@ data "aws_iam_policy_document" "cost_guard_permissions" {
   }
 }
 
+resource "aws_sns_topic" "cost_guard_budget" {
+  name = var.budget_sns_topic_name
+
+  tags = var.tags
+}
+
+data "aws_iam_policy_document" "cost_guard_budget_topic" {
+  statement {
+    sid    = "AllowBudgetsToPublish"
+    effect = "Allow"
+
+    principals {
+      type        = "Service"
+      identifiers = ["budgets.amazonaws.com"]
+    }
+
+    actions = ["SNS:Publish"]
+
+    resources = [aws_sns_topic.cost_guard_budget.arn]
+
+    condition {
+      test     = "StringEquals"
+      variable = "aws:SourceAccount"
+      values   = [data.aws_caller_identity.current.account_id]
+    }
+  }
+}
+
+resource "aws_sns_topic_policy" "cost_guard_budget" {
+  arn    = aws_sns_topic.cost_guard_budget.arn
+  policy = data.aws_iam_policy_document.cost_guard_budget_topic.json
+}
+
 resource "aws_iam_policy" "cost_guard" {
   name        = var.policy_name
   description = "Least-privilege permissions for W6 Cost Guard Lambda: describe/list targets and stop EC2/RDS."
@@ -158,4 +191,41 @@ resource "aws_lambda_permission" "allow_eventbridge" {
   function_name = aws_lambda_function.cost_guard.function_name
   principal     = "events.amazonaws.com"
   source_arn    = aws_cloudwatch_event_rule.cost_guard_schedule.arn
+}
+
+resource "aws_lambda_permission" "allow_budget_sns" {
+  statement_id  = "AllowExecutionFromBudgetSns"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.cost_guard.function_name
+  principal     = "sns.amazonaws.com"
+  source_arn    = aws_sns_topic.cost_guard_budget.arn
+}
+
+resource "aws_sns_topic_subscription" "cost_guard_lambda" {
+  topic_arn = aws_sns_topic.cost_guard_budget.arn
+  protocol  = "lambda"
+  endpoint  = aws_lambda_function.cost_guard.arn
+
+  depends_on = [aws_lambda_permission.allow_budget_sns]
+}
+
+resource "aws_budgets_budget" "daily_cost_guard" {
+  name         = var.budget_name
+  budget_type  = "COST"
+  limit_amount = var.budget_limit_usd
+  limit_unit   = "USD"
+  time_unit    = "DAILY"
+
+  notification {
+    comparison_operator       = "GREATER_THAN"
+    threshold                 = var.budget_alert_threshold_percent
+    threshold_type            = "PERCENTAGE"
+    notification_type         = "ACTUAL"
+    subscriber_sns_topic_arns = [aws_sns_topic.cost_guard_budget.arn]
+  }
+
+  depends_on = [
+    aws_sns_topic_policy.cost_guard_budget,
+    aws_sns_topic_subscription.cost_guard_lambda
+  ]
 }

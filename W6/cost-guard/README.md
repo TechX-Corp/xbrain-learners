@@ -14,6 +14,7 @@ This folder implements the W6 automated cost-control Lambda.
   - Stop only: `ec2:StopInstances`, `rds:StopDBInstance`
   - CloudWatch Logs write permissions for Lambda execution logs
 - EventBridge invokes the Lambda on a schedule so a real CloudTrail `StopInstances` or `StopDBInstance` event can be captured for the W6 evidence pack.
+- AWS Budgets daily `$150` is wired to SNS, and the SNS topic invokes the same Lambda so the required cost-driven path exists. A real Budgets alert may be delayed by AWS cost-data latency, so demo it with a test SNS publish.
 
 ## Guard logic
 
@@ -47,16 +48,32 @@ Return it to the daily schedule after collecting evidence:
 terraform apply -var='schedule_expression=cron(0 18 * * ? *)'
 ```
 
+The Terraform also creates the W6 cost-driven path:
+
+```text
+AWS Budgets daily $150 -> SNS topic -> Cost Guard Lambda
+```
+
+Demo the Budgets path without waiting for delayed cost data by publishing a test SNS message to the output topic ARN:
+
+```bash
+aws sns publish \
+  --topic-arn "$(terraform output -raw budget_sns_topic_arn)" \
+  --message '{"source":"manual-w6-budget-chain-test"}'
+```
+
 ## Evidence to capture for W6
 
 1. Screenshot the IAM policy showing only Describe/List, Stop, and Logs permissions.
-2. Create or use one EC2/RDS resource without `keep=true` and without `Environment=dev`.
-3. Let the EventBridge rule invoke the Lambda.
-4. Capture before/after state: running/available → stopping/stopped.
-5. Capture CloudTrail event:
+2. Screenshot the EventBridge daily schedule.
+3. Screenshot the AWS Budget (`$150`, `DAILY`) and SNS topic/subscription wired to the Lambda.
+4. Create or use one EC2/RDS resource without `keep=true` and without `Environment=dev`.
+5. Let the EventBridge rule invoke the Lambda, or run the SNS test publish above for the Budgets chain demo.
+6. Capture before/after state: running/available → stopping/stopped.
+7. Capture CloudTrail event:
    - EC2: `StopInstances`
    - RDS: `StopDBInstance`
-6. Add the screenshots and 1–2 line explanation to `docs/W6_evidence.md`.
+8. Add the screenshots, the SNS test-publish result, and the latency ADR to `docs/W6_evidence.md`.
 
 ## Safety
 
