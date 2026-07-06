@@ -7,7 +7,7 @@ Nhiệm vụ không phải "làm bài tập". Nhiệm vụ là **vận hành s�
 ## Đọc gì trước
 
 1. **[RULES.md](RULES.md)** - thể lệ đầy đủ: cấu trúc TF, 5 trụ (Security / Reliability / Performance Efficiency / Cost Optimization / Auditability) + trụ AI, timeline 3 tuần, và **luật chơi** (đọc kỹ mục luật - có điều khoản disqualify).
-2. **[onboarding/](onboarding/)** - hiểu hệ thống bạn tiếp quản: [ARCHITECTURE](onboarding/ARCHITECTURE.md), [SLO](onboarding/SLO.md), [BUDGET](onboarding/BUDGET.md), [INCIDENT_HISTORY](onboarding/INCIDENT_HISTORY.md), [PITCH_GUIDE](onboarding/PITCH_GUIDE.md).
+2. **[onboarding/](onboarding/)** - hiểu hệ thống bạn tiếp quản: [ARCHITECTURE](onboarding/ARCHITECTURE.md), [SLO](onboarding/SLO.md), [BUDGET](onboarding/BUDGET.md), [INCIDENT_HISTORY](onboarding/INCIDENT_HISTORY.md), [AI_FEATURE](onboarding/AI_FEATURE.md) (nhóm AIO), [PITCH_GUIDE](onboarding/PITCH_GUIDE.md).
 3. **[GETTING_STARTED.md](GETTING_STARTED.md)** - cách build hệ thống từ source, đẩy image lên ECR của TF, rồi deploy và kiểm tra.
 
 ## Repo này có gì

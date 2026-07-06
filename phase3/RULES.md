@@ -53,15 +53,17 @@ Dựa trên observability sẵn có (Prometheus metrics / Jaeger traces / OpenSe
 - **Mở rộng:** phân tích nguyên nhân (RCA) cross-service, dự báo capacity/cost, phát hiện drift.
 
 ### Hướng AIE - làm AI trong sản phẩm
-Tính năng AI của sản phẩm là **tóm tắt review** (`product-reviews` + `llm`). Đây là bề mặt AIE vận hành và nâng chất.
-- **Cốt lõi:** đảm bảo **không hiển thị tóm tắt sai lệch** cho khách (eval độ trung thực + fallback khi LLM lỗi/chậm); **guardrail** chặn prompt-injection nhét trong review, lọc PII, chặn lộ system prompt; tối ưu **chi phí + độ trễ** (cache, route model rẻ, giảm token, timeout/retry).
-- **Mở rộng - trợ lý AI có hành động (agentic):** nâng tính năng AI thành trợ lý biết **gọi công cụ** (product-catalog, cart, reviews) để giúp khách. Ví dụ agent có thể làm:
+Bề mặt AI hiện tại là **tóm tắt review** (`product-reviews` + `llm`). Nhiệm vụ AIE gồm cả **vận hành/nâng chất tính năng có sẵn** lẫn **tự dựng một trợ lý AI agentic** trên chính sản phẩm này.
+
+- **Cốt lõi 1 - Chất lượng & an toàn tính năng AI có sẵn:** **không hiển thị tóm tắt sai lệch** cho khách (eval độ trung thực + fallback khi LLM lỗi/chậm); **guardrail** chặn prompt-injection nhét trong review, lọc PII, chặn lộ system prompt; tối ưu **chi phí + độ trễ** (cache, route model rẻ, giảm token, timeout/retry).
+- **Cốt lõi 2 - Trợ lý AI agentic (tự dựng):** dựng một trợ lý biết **gọi công cụ** (product-catalog, cart, reviews…) để giúp khách - **BTC không phát sẵn code agent, các bạn tự xây** trên source hiện có. Ví dụ trợ lý cần làm được:
   - *"Tìm tai nghe dưới $50 giao nhanh"* → gọi search catalog + lọc → gợi ý.
   - *"Pin sản phẩm này dùng bao lâu?"* → trả lời **grounded trên review thật** (RAG), không bịa.
   - *"So sánh A với B"* → gom catalog + review 2 sản phẩm → tổng hợp ưu/nhược.
   - *"Thêm 2 cái vào giỏ"* → gọi cart, **nhưng phải xác nhận trước khi checkout**.
 
-  Điểm được đánh giá **không phải "trả lời trôi chảy"**, mà là: gọi **đúng công cụ trong phạm vi cho phép** (không tự ý checkout/xoá giỏ - **guardrail excessive-agency**), trả lời **grounded không hallucinate**, và **đo được task-success**. Cùng hướng mở rộng: semantic search, recommendation bằng tín hiệu AI.
+  Được đánh giá **không phải "trả lời trôi chảy"**, mà: gọi **đúng công cụ trong phạm vi cho phép** (không tự ý checkout/xoá giỏ - **guardrail excessive-agency**), trả lời **grounded không hallucinate**, có **eval task-success**. Chi tiết bề mặt AI + gợi ý cách dựng: [onboarding/AI_FEATURE.md](onboarding/AI_FEATURE.md).
+- **Mở rộng (đua top):** semantic search nâng cao, recommendation bằng tín hiệu AI, model gateway + A/B khi đổi model.
 
 > Với mọi hạng mục AIE: phải **chạy thật** trong hệ thống của TF (không mockup), có **eval** chứng minh chất lượng/an toàn, không phá SLO/ngân sách.
 
