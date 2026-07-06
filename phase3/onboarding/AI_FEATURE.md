@@ -46,10 +46,34 @@ Dựng một trợ lý biết **gọi công cụ** trên các service đang ch�
 - **Grounded, không hallucinate**; không lộ PII / system prompt.
 - **Fallback** khi LLM lỗi/chậm (không treo trang) + **giới hạn vòng lặp** + **audit log** mọi lời gọi tool.
 
-## 3. Đánh giá dựa trên gì
-- **Chạy thật** trong hệ thống của TF (build → ECR → deploy), không mockup.
-- **Eval** chứng minh: độ trung thực tóm tắt, block-rate guardrail (injection/PII), và **task-success** của trợ lý (hoàn thành đúng tác vụ trong phạm vi), không chỉ "trả lời trôi chảy".
-- Không phá SLO / ngân sách; quyết định lớn ghi **ADR ký tên**.
+## 3. Cách chấm - tầng AI
+
+Chấm theo **judgment + vận hành thật**, không phải "viết được bao nhiêu code". Năm chiều:
+
+1. **Ưu tiên & judgment** - chọn đúng việc đáng làm trên tầng AI, dám bỏ việc tác động thấp và giải thích được.
+2. **Engineering & Ops** - xử lý đúng gốc, không tạo lỗi mới; có đo trước-sau.
+3. **Business trade-off** - quy quyết định về chi phí / khách hàng / SLO.
+4. **Năng lực AI** - AIOps (phát hiện-chẩn đoán-xử lý sự cố) và AIE (chất lượng, an toàn, chi phí của tính năng AI + trợ lý agentic).
+5. **Communication** - ADR / postmortem rõ ràng, quản lý được stakeholder khi bị phản biện.
+
+**Được nhìn cụ thể ở tầng AI:**
+- **Chạy thật, không mockup** - deploy và chạy trong hệ thống của TF (build → ECR → deploy).
+- **Có eval, tái tạo được** - chứng minh bằng số đo (độ trung thực tóm tắt, tỉ lệ chặn tấn công, task-success của trợ lý…), tái tạo được từ dữ liệu + script bạn commit. Số không tái tạo được coi như chưa chứng minh.
+- **Đo được** - before/after cho mỗi cải tiến (latency, cost, tỉ lệ lỗi, MTTD/MTTR…).
+- **An toàn** - guardrail, xác nhận trước hành động ghi, fallback, rollback.
+- **Grounded** - trợ lý AI không bịa, không lộ PII / system prompt.
+- Quyết định lớn có **ADR** (truy được thay đổi), không phá SLO / ngân sách.
+
+**Cần chuẩn bị để chấm:**
+- Hệ thống của TF **đang chạy** trong lúc đánh giá (có thể được tương tác/kiểm tra trực tiếp).
+- **Khai rõ endpoint** trong bản nộp: tính năng AI (trợ lý/tóm tắt) và kênh cảnh báo/nhật ký của hệ AIOps.
+- Bộ **eval + script tái tạo** (`repro`) đi kèm.
+
+**Bar để được đánh giá cao:**
+- Hệ AIOps **chạy liên tục** trong lúc vận hành và **xử lý được sự cố thật** (không phải demo một lần).
+- Trợ lý AI hoạt động **trong phạm vi cho phép**, có **eval task-success** - không tính "trả lời trôi chảy".
+
+**Vi phạm = loại (disqualify):** tắt/đổi hướng cơ chế sự cố (flagd); mượn kết quả TF khác; vượt ngân sách hoặc phá SLO của nhau.
 
 ## 4. Bắt đầu từ đâu
 1. Cắm `llm` sang model thật (`values-aio-llm.yaml`) → xem tính năng tóm tắt chạy thật.
