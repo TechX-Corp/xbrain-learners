@@ -20,24 +20,31 @@ Tài liệu onboarding cho nhóm AIO (hướng AIE). Đọc để hiểu bề m�
 - **An toàn:** guardrail chặn prompt-injection nhét trong nội dung review, lọc PII, chặn lộ system prompt.
 - **Chi phí/độ trễ:** cache tóm tắt theo sản phẩm, route model rẻ, giảm token, timeout/retry.
 
-### Phần B - Tự dựng trợ lý AI agentic (BTC KHÔNG phát sẵn code agent)
-Dựng một trợ lý biết **gọi công cụ** trên chính các service đang chạy để giúp khách. Bạn xây trên source có sẵn (`product-reviews`/`llm` + các rpc của service khác).
+### Phần B - Tự dựng "Shopping Copilot" agentic (BTC KHÔNG phát sẵn code agent)
+Dựng một trợ lý biết **gọi công cụ** trên các service đang chạy để giúp khách. Bạn tự xây (framework tool-calling tuỳ chọn), wire vào các rpc có sẵn.
 
-**Công cụ agent có thể gọi (đã có trong hệ thống):**
-- `product-catalog`: list / get / **search** sản phẩm.
-- `product-reviews`: review + tóm tắt của một sản phẩm.
-- `cart`: xem / thêm / sửa giỏ.
+**Công cụ (tool) agent gọi được:** `product-catalog` (list/get/**search**) · `product-reviews` (review + tóm tắt) · `cart` (xem/thêm/sửa) · `recommendation` · `currency` · `quote`/`shipping`.
 
-**Trợ lý cần làm được (ví dụ):**
-- *"Tìm tai nghe dưới $50 giao nhanh"* → search catalog + lọc → gợi ý.
-- *"Pin sản phẩm này dùng bao lâu?"* → trả lời **grounded trên review thật** (RAG), có dẫn nguồn, không bịa.
-- *"So sánh A với B"* → gom catalog + review 2 sản phẩm → ưu/nhược.
-- *"Thêm 2 cái vào giỏ"* → gọi `cart`, **xác nhận trước khi checkout**.
+**Cốt lõi - phải làm được cả 3 intent:**
 
-**Ràng buộc an toàn (được chấm):**
-- Chỉ gọi công cụ **trong allow-list**; **không** tự ý checkout / xoá giỏ / hành động ngoài phạm vi (guardrail **excessive-agency**).
-- Trả lời **grounded**, không hallucinate; không lộ PII / system prompt.
-- Có **giới hạn vòng lặp** cho agent (tránh loop vô hạn) + log/audit lời gọi tool.
+| # | Intent | Làm gì | Tool | "Done" |
+|---|---|---|---|---|
+| 1 | **Tìm sản phẩm NL** | *"tai nghe chống ồn dưới $50"* → tìm + lọc | product-catalog search | query tự nhiên ra đúng sản phẩm, không phải keyword cứng |
+| 2 | **Hỏi-đáp grounded (RAG)** | *"pin dùng bao lâu?"* → trả lời từ review thật, dẫn nguồn | product-reviews (+catalog) | 0 hallucinate; **nói "không có thông tin"** khi review không đề cập |
+| 3 | **Giỏ hàng có kiểm soát** | *"thêm 2 cái vào giỏ"* → thao tác giỏ | cart | thực thi đúng lệnh; **xác nhận trước khi ghi**; **không tự checkout/xoá giỏ** |
+
+**Mở rộng (đua top):**
+| # | Intent | Tool |
+|---|---|---|
+| 4 | **So sánh sản phẩm** (giá + sentiment review 2-3 SP) | catalog + reviews |
+| 5 | **Gợi ý kèm / cross-sell** | recommendation + catalog |
+| 6 | **Giá/ship/quy đổi tiền** | currency + quote/shipping |
+
+**Yêu cầu xuyên suốt mọi intent (được chấm):**
+- **Multi-turn:** nhớ ngữ cảnh ("nó", "cái đầu tiên").
+- **Tool allow-list + confirmation gate** cho mọi hành động ghi; **không** hành động ngoài phạm vi (guardrail **excessive-agency**).
+- **Grounded, không hallucinate**; không lộ PII / system prompt.
+- **Fallback** khi LLM lỗi/chậm (không treo trang) + **giới hạn vòng lặp** + **audit log** mọi lời gọi tool.
 
 ## 3. Đánh giá dựa trên gì
 - **Chạy thật** trong hệ thống của TF (build → ECR → deploy), không mockup.
