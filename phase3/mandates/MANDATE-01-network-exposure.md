@@ -1,7 +1,7 @@
 # [DIRECTIVE #1] Storefront công khai, mọi cổng vận hành phải riêng tư
 
 **Từ:** Ban Hạ tầng & Bảo mật - TechX Corp
-**Hiệu lực:** ngay khi nhận · hoàn tất trước **thứ Ba 13/07/2026**
+**Hiệu lực:** ngay khi nhận · hoàn tất trước **thứ Ba 14/07/2026**
 **Áp dụng:** toàn bộ Task Force
 
 ---
