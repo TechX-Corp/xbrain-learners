@@ -10,7 +10,7 @@
 Marketing sắp chạy một đợt **flash sale** - dự kiến traffic tăng vọt nhiều lần so với ngày thường, dồn vào luồng browse/search và checkout. Tài chính **không duyệt tăng ngân sách hạ tầng** cho đợt này. Nói cách khác: hệ thống phải gánh tải lớn hơn hẳn mà vẫn giữ cam kết dịch vụ, trong đúng trần chi phí đang có. Không được xử bằng cách "quăng thêm tài nguyên cho xong".
 
 ## Yêu cầu
-1. **Chịu được tải cao gấp nhiều lần** - mục tiêu **≥ 3× tải giờ cao điểm hiện tại** (BTC chốt con số chính thức) - mà vẫn **giữ SLO**: checkout ≥ 99%, browse/cart ≥ 99.5%, storefront p95 < 1s (xem `onboarding/SLO.md`).
+1. **Chịu được tải flash sale** - mục tiêu **200 user đồng thời (qua load-generator), giữ trong 15 phút** - mà vẫn **giữ SLO**: checkout ≥ 99%, browse/cart ≥ 99.5%, storefront p95 < 1s (xem `onboarding/SLO.md`). Cùng một cấu hình tải cho cả 4 TF để so công bằng.
 2. **Không vượt trần ngân sách hiện tại** (~$300/tuần/TF, xem `onboarding/BUDGET.md`). **Chi phí trên mỗi đơn / mỗi request không được phình** khi tải tăng - đây là thước đo hiệu quả, không phải tổng chi.
 3. **Tự tìm và xử điểm nghẽn.** Dưới tải, các nút thắt hiện có sẽ lộ ra (chia tài nguyên chưa hợp lý, service bão hòa, thiếu co giãn, hết bộ nhớ…). BTC không phát danh sách - các bạn tự phát hiện và xử.
 4. **Co lên rồi phải co xuống.** Sau đỉnh tải, hệ thống trả tài nguyên về mức thường - không để tài nguyên (và tiền) neo ở đỉnh.
