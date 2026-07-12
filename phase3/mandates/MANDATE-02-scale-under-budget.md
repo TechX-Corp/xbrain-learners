@@ -1,7 +1,7 @@
 # [DIRECTIVE #2] Chịu được flash sale mà không tăng ngân sách
 
 **Từ:** Ban Sản phẩm & Tài chính - TechX Corp
-**Hiệu lực:** ngay khi nhận · hoàn tất trước **[BTC điền hạn]**
+**Hiệu lực:** ngay khi nhận · hoàn tất trước **thứ Ba 14/07/2026**
 **Áp dụng:** toàn bộ Task Force
 
 ---
