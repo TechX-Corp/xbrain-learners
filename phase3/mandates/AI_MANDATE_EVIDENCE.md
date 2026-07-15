@@ -22,18 +22,20 @@
 
 **Đóng ticket** khi đủ 4 thứ trên, **trước deadline**. Thiếu mục 3 (bằng chứng chạy thật) → mentor để ticket mở, hỏi lại, **chưa tính** dù code đã có.
 
+> Một số chặng cố tình chấm **như doc** (implement + phân tích, chưa cần chạy thật) — ví dụ `#7a`. Với chặng đó, mục 3 thay bằng **phần phân tích viết trong ticket**; deadline chạy thật rơi vào chặng sau.
+
 ---
 
 ## Mandate nhiều mốc → nhiều ticket
 
 Một mandate có thể có nhiều chặng, mỗi chặng 1 ticket + 1 deadline riêng. Ví dụ **#7 (detection)**:
 
-| Ticket | Nội dung | Hạn |
-|---|---|---|
-| `[DIRECTIVE #7a]` | baseline ≥3 service + detector kêu e2e | T7 18/07 |
-| `[DIRECTIVE #7b]` | số precision/recall + alert theo mức ảnh hưởng | T7 25/07 |
+| Ticket | Nội dung | Chấm kiểu | Hạn |
+|---|---|---|---|
+| `[DIRECTIVE #7a]` | implement (link PR) + phân tích chọn ≥3 service/baseline/phương pháp | như **doc** — chưa cần chạy thật | T7 18/07 |
+| `[DIRECTIVE #7b]` | chạy thật e2e (**ảnh alert**) + số precision/recall + alert theo mức ảnh hưởng | **bằng chứng chạy được** | T7 25/07 |
 
-Đội đã có sẵn phần đầu thì tập trung ticket chặng sau.
+Đội đã có sẵn phần đầu thì làm gọn `#7a`, tập trung `#7b`.
 
 ---
 

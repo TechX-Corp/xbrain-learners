@@ -13,14 +13,14 @@ Hiện muốn biết hệ thống có đang khoẻ hay không, phải có ngư�
 1. **Phát hiện bất thường đa tín hiệu** - không chỉ ngưỡng tĩnh: bắt được bất thường trên latency / error rate / saturation / queue / cost… dựa trên telemetry thật đang chảy.
 2. **Có baseline "biết thế nào là bình thường"** - lập baseline theo từng service để không báo nhầm vào lúc tải cao bình thường.
 3. **Cảnh báo có ý nghĩa, không spam** - báo theo mức độ ảnh hưởng (ưu tiên triệu chứng user-visible + burn-rate error budget), không phải mỗi cái gợn là kêu.
-4. **Chạy được end-to-end** - bơm một bất thường vào là detector **kêu ra**, nhìn thấy được (alert/log/dashboard). Tuần này chỉ cần **feature chạy thật**, chưa cần số precision/recall chính xác - phần đo đạc để đợt sau.
+4. **Chạy được end-to-end** - bơm một bất thường vào là detector **kêu ra**, nhìn thấy được (alert/log/dashboard). Phần chạy thật + đo đạc nộp ở chặng sau (#7b); chặng đầu (#7a) chỉ cần implement + phân tích.
 
-## Định nghĩa Hoàn thành (DoD - hạn 18/07)
-Không cần phủ hết ~18 service. Tuần này đạt khi:
-1. **Chọn ≥ 3 service trọng yếu** (ưu tiên user-facing / có SLA: frontend, checkout, cart, product-catalog…) - liệt kê rõ đội chọn cái nào và vì sao.
-2. **Mỗi service đó có baseline cho ≥ 1 tín hiệu vàng** (latency **hoặc** error rate) - "bình thường" là khoảng nào.
-3. **Bơm 1 sự cố vào 1 trong các service đó → detector kêu e2e**, nhìn thấy được (alert/log/dashboard).
-> Mở rộng ra nhiều service hơn + nhiều tín hiệu hơn = điểm cao hơn, nhưng 3 service + 1 lần kêu e2e là **sàn đạt**. Số precision/recall để đợt sau.
+## Định nghĩa Hoàn thành cho #7a (hạn 18/07) — implement + phân tích
+Không cần chạy thật tuần này. Đạt khi trong Jira thể hiện được:
+1. **Đã bắt tay implement** detector + baseline (link PR/commit cho thấy code có thật).
+2. **Phân tích (dạng doc trong ticket):** chọn **≥ 3 service trọng yếu** nào + vì sao (ưu tiên user-facing / có SLA: frontend, checkout, cart, product-catalog…); baseline mỗi service (1 tín hiệu vàng latency/error rate + khoảng "bình thường"); phương pháp phát hiện định dùng.
+3. **ADR ký tên.**
+> Chạy thật e2e + ảnh alert minh chứng + số precision/recall để chặng **#7b** (25/07).
 
 ## Ràng buộc
 - Không kéo tải/độ trễ hệ thống vì việc thu thập-đo (đo phải nhẹ).
@@ -30,15 +30,15 @@ Không cần phủ hết ~18 service. Tuần này đạt khi:
 ## Phải nộp
 Nộp qua **2 Jira ticket** riêng (cách ghi evidence xem `AI_MANDATE_EVIDENCE.md`):
 
-- **`[DIRECTIVE #7a]` Detection · baseline + e2e — hạn T7 18/07**
-  - Danh sách **≥ 3 service** đã chọn + baseline mỗi cái (1 tín hiệu vàng, khoảng bình thường).
-  - **1 ảnh/log detector kêu e2e** khi bơm 1 sự cố (mentor tự bật hoặc bơm qua flagd).
-  - Link PR/commit + cách chạy lại + **ADR ký tên** (chọn phương pháp gì, baseline/ngưỡng ra sao).
-- **`[DIRECTIVE #7b]` Detection · đo đạc + alert — hạn T7 25/07**
-  - **Số precision/recall/lead-time** đo được + cách chạy lại eval.
-  - **Cảnh báo theo mức ảnh hưởng** (burn-rate, không spam) + mở rộng thêm service ngoài 3 cái đầu.
+- **`[DIRECTIVE #7a]` Detection · implement + phân tích — hạn T7 18/07** *(chấm như doc, chưa cần chạy thật)*
+  - **Link PR/commit** cho thấy đã implement detector + baseline.
+  - **Phân tích trong ticket:** ≥ 3 service đã chọn + vì sao; baseline mỗi service (tín hiệu vàng + khoảng bình thường); phương pháp phát hiện.
+  - **ADR ký tên.**
+- **`[DIRECTIVE #7b]` Detection · chạy thật + đo đạc — hạn T7 25/07**
+  - **Ảnh/log detector kêu e2e** khi bơm 1 sự cố (mentor tự bật hoặc bơm qua flagd) + cách chạy lại.
+  - **Số precision/recall/lead-time** đo được + **cảnh báo theo mức ảnh hưởng** (burn-rate, không spam) + mở rộng thêm service.
 
-> Đội đã có detection chạy sẵn thì tập trung vào `#7b`.
+> Đội đã có detection chạy sẵn thì làm gọn `#7a` và tập trung vào `#7b`.
 
 ## Được nhìn ở đâu
 Trụ **AI** (AIOps): dùng AI/thống kê để vận hành. Chạm **Reliability** (phát hiện sớm giữ SLO) và **Operational Excellence** (giảm thời gian tới lúc biết có sự cố - MTTD).
