@@ -9,13 +9,9 @@
 ## Mỗi mandate = 1 ticket (mandate nhiều mốc thì nhiều ticket)
 
 **Tạo ticket:**
-- **Summary (naming — theo đúng format này):**
-  `[DIRECTIVE #N<stage>][<TF>] <tên ngắn>`
-  - `#N` = số mandate, khớp tiêu đề memo (`# [DIRECTIVE #N]`).
-  - `<stage>` = chữ thường `a`/`b`/`c`… khi mandate chia nhiều chặng; **bỏ đi** nếu mandate 1 chặng.
-  - `[<TF>]` = chỉ thêm khi mandate **dành riêng 1 Task Force** (stretch); mandate chung cho mọi TF thì bỏ.
-  - `<tên ngắn>` ≤ ~8 từ, mô tả chặng.
-  - Ví dụ: `[DIRECTIVE #6] AI trust & safety` · `[DIRECTIVE #7a] Detection · implement + phân tích` · `[DIRECTIVE #7b] Detection · chạy thật + đo đạc` · `[DIRECTIVE #11B][TF1] RCA + red-team`.
+- **Summary (naming — theo đúng format này):** `AI MANDATE #<N><stage> [TF]`
+  - `#N` = số mandate, khớp memo; `<stage>` = `a`/`b`/`c` nếu chia chặng (bỏ nếu 1 chặng); `TF` = thêm khi mandate riêng 1 Task Force (bỏ nếu chung).
+  - Ví dụ: `AI MANDATE #6` · `AI MANDATE #7a` · `AI MANDATE #7b` · `AI MANDATE #11b TF1`.
 - **Label (bắt buộc):** `ai-mandate` **và** `m<N>` (vd `m7`) — để lọc chung + lọc theo từng mandate.
 - **Assignee:** người đại diện nộp. Làm chung nhiều người thì ghi tên đồng đội ở `Description` (không quy trách nhiệm 1 người, nhưng phải có 1 người đứng ra nộp).
 - **Priority:** set theo deadline (mandate đang chạy → High).
@@ -39,8 +35,8 @@ Một mandate có thể có nhiều chặng, mỗi chặng 1 ticket + 1 deadline
 
 | Ticket | Nội dung | Chấm kiểu | Hạn |
 |---|---|---|---|
-| `[DIRECTIVE #7a]` | implement (link PR) + phân tích **≥3 metrics** (mỗi metric: baseline/ngưỡng bất thường) + phương pháp | như **doc** — chưa cần chạy thật | T7 18/07 |
-| `[DIRECTIVE #7b]` | chạy thật e2e (**ảnh alert**) + số precision/recall + alert theo mức ảnh hưởng | **bằng chứng chạy được** | T7 25/07 |
+| `AI MANDATE #7a` | implement (link PR) + phân tích **≥3 metrics** (mỗi metric: baseline/ngưỡng bất thường) + phương pháp | như **doc** — chưa cần chạy thật | T7 18/07 |
+| `AI MANDATE #7b` | chạy thật e2e (**ảnh alert**) + số precision/recall + alert theo mức ảnh hưởng | **bằng chứng chạy được** | T7 25/07 |
 
 Đội đã có sẵn phần đầu thì làm gọn `#7a`, tập trung `#7b`.
 
@@ -61,13 +57,9 @@ Applies to the **AIO track** (AI directives: #6, #7, …). Mentors grade a manda
 ### One mandate = one ticket (multi-stage mandate = multiple tickets)
 
 **Create the ticket:**
-- **Summary (naming — follow this exact format):**
-  `[DIRECTIVE #N<stage>][<TF>] <short title>`
-  - `#N` = mandate number, matching the memo title (`# [DIRECTIVE #N]`).
-  - `<stage>` = lowercase `a`/`b`/`c`… when the mandate splits into stages; **omit** for single-stage mandates.
-  - `[<TF>]` = add only when the mandate is **for one Task Force** (stretch); omit for all-TF mandates.
-  - `<short title>` ≤ ~8 words describing the stage.
-  - Examples: `[DIRECTIVE #6] AI trust & safety` · `[DIRECTIVE #7a] Detection · implement + analysis` · `[DIRECTIVE #7b] Detection · live run + measurement` · `[DIRECTIVE #11B][TF1] RCA + red-team`.
+- **Summary (naming — follow this exact format):** `AI MANDATE #<N><stage> [TF]`
+  - `#N` = mandate number, matching the memo; `<stage>` = `a`/`b`/`c` if split into stages (omit if single-stage); `TF` = add when the mandate is for one Task Force (omit if all-TF).
+  - Examples: `AI MANDATE #6` · `AI MANDATE #7a` · `AI MANDATE #7b` · `AI MANDATE #11b TF1`.
 - **Label (required):** `ai-mandate` **and** `m<N>` (e.g. `m7`) — for global + per-mandate filtering.
 - **Assignee:** the person submitting. If done by several people, list teammates in `Description` (no single-person blame, but one person owns submission).
 - **Priority:** set by deadline (active mandate → High).
@@ -89,8 +81,8 @@ A mandate can have several stages, each its own ticket + deadline. Example **#7 
 
 | Ticket | Content | Grading style | Due |
 |---|---|---|---|
-| `[DIRECTIVE #7a]` | implement (PR link) + analysis of **≥3 metrics** (each: baseline/anomaly threshold) + method | as a **doc** — no live run yet | Sat 18/07 |
-| `[DIRECTIVE #7b]` | live e2e run (**alert screenshot**) + precision/recall + impact-based alerting | **working proof** | Sat 25/07 |
+| `AI MANDATE #7a` | implement (PR link) + analysis of **≥3 metrics** (each: baseline/anomaly threshold) + method | as a **doc** — no live run yet | Sat 18/07 |
+| `AI MANDATE #7b` | live e2e run (**alert screenshot**) + precision/recall + impact-based alerting | **working proof** | Sat 25/07 |
 
 Teams that already have the first part can keep `#7a` light and focus on `#7b`.
 

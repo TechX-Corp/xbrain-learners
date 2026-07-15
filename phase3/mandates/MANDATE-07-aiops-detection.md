@@ -30,11 +30,11 @@ Không cần chạy thật tuần này. Đạt khi trong Jira thể hiện đư�
 ## Phải nộp
 Nộp qua **2 Jira ticket** riêng (cách ghi evidence xem `AI_MANDATE_EVIDENCE.md`):
 
-- **`[DIRECTIVE #7a]` Detection · implement + phân tích — hạn T7 18/07** *(chấm như doc, chưa cần chạy thật)*
+- **`AI MANDATE #7a` Detection · implement + phân tích — hạn T7 18/07** *(chấm như doc, chưa cần chạy thật)*
   - **Link PR/commit** cho thấy đã implement detector + baseline.
   - **Phân tích trong ticket:** **≥ 3 metrics** đã chọn (từ service trọng yếu) + với mỗi metric: vì sao chọn, baseline "bình thường", ngưỡng bất thường; phương pháp phát hiện.
   - **ADR ký tên.**
-- **`[DIRECTIVE #7b]` Detection · chạy thật + đo đạc — hạn T7 25/07**
+- **`AI MANDATE #7b` Detection · chạy thật + đo đạc — hạn T7 25/07**
   - **Ảnh/log detector kêu e2e** khi bơm 1 sự cố (mentor tự bật hoặc bơm qua flagd) + cách chạy lại.
   - **Số precision/recall/lead-time** đo trên **một bộ sự cố có nhãn** (mentor bơm K sự cố + có giai đoạn bình thường), KHÔNG phải per-service: recall = bắt được / K; precision = lần kêu đúng / tổng lần kêu; lead-time = từ lúc sự cố bắt đầu tới lúc kêu.
   - **Cảnh báo theo mức ảnh hưởng** (burn-rate, không spam) + mở rộng thêm service.
@@ -80,11 +80,11 @@ No live run required this week. Done when the Jira ticket shows:
 ### Deliverables
 Submit via **2 separate Jira tickets** (evidence format in `AI_MANDATE_EVIDENCE.md`):
 
-- **`[DIRECTIVE #7a]` Detection · implement + analysis — due Sat 18/07** *(graded as a doc, no live run yet)*
+- **`AI MANDATE #7a` Detection · implement + analysis — due Sat 18/07** *(graded as a doc, no live run yet)*
   - **PR/commit link** showing detector + baseline implemented.
   - **Analysis in the ticket:** the **≥ 3 metrics** chosen (from key services) + per metric: why chosen, "normal" baseline, anomaly threshold; detection method.
   - **Signed ADR.**
-- **`[DIRECTIVE #7b]` Detection · live run + measurement — due Sat 25/07**
+- **`AI MANDATE #7b` Detection · live run + measurement — due Sat 25/07**
   - **Screenshot/log of the detector firing e2e** when an incident is injected (mentor turns it on or injects via flagd) + how to reproduce.
   - **Precision/recall/lead-time** measured over a **labeled incident set** (mentor injects K incidents + a normal period), NOT per-service: recall = caught / K; precision = correct fires / total fires; lead-time = from incident start to fire.
   - **Impact-based alerting** (burn-rate, no spam) + expand to more services.
