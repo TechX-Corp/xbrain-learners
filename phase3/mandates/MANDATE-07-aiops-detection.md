@@ -1,7 +1,7 @@
 # [DIRECTIVE #7] Sự cố phải tự lộ ra - dựng mắt cho hệ thống
 
 **Từ:** Ban Vận hành (SRE) - TechX Corp
-**Hiệu lực:** ngay khi nhận · hoàn tất & nộp trước **thứ Bảy 18/07/2026**
+**Hiệu lực:** ngay khi nhận · nộp qua **2 ticket**: `#7a` trước **thứ Bảy 18/07**, `#7b` trước **thứ Bảy 25/07**
 **Áp dụng:** nhóm AIO của mọi Task Force
 
 ---
@@ -28,8 +28,17 @@ Không cần phủ hết ~18 service. Tuần này đạt khi:
 - Không đụng / vô hiệu hóa cơ chế sự cố (flagd) - xem Luật chơi trong RULES.
 
 ## Phải nộp
-- Cho mentor **tự bật một sự cố** (hoặc để mentor bơm qua flagd) và tận mắt thấy detector **kêu ra** - chạy end-to-end được là đạt. Số precision/recall/lead-time chưa bắt buộc tuần này (để đợt sau tinh chỉnh).
-- **ADR ký tên**: chọn phương pháp phát hiện gì, ngưỡng/baseline ra sao, vì sao.
+Nộp qua **2 Jira ticket** riêng (cách ghi evidence xem `AI_MANDATE_EVIDENCE.md`):
+
+- **`[DIRECTIVE #7a]` Detection · baseline + e2e — hạn T7 18/07**
+  - Danh sách **≥ 3 service** đã chọn + baseline mỗi cái (1 tín hiệu vàng, khoảng bình thường).
+  - **1 ảnh/log detector kêu e2e** khi bơm 1 sự cố (mentor tự bật hoặc bơm qua flagd).
+  - Link PR/commit + cách chạy lại + **ADR ký tên** (chọn phương pháp gì, baseline/ngưỡng ra sao).
+- **`[DIRECTIVE #7b]` Detection · đo đạc + alert — hạn T7 25/07**
+  - **Số precision/recall/lead-time** đo được + cách chạy lại eval.
+  - **Cảnh báo theo mức ảnh hưởng** (burn-rate, không spam) + mở rộng thêm service ngoài 3 cái đầu.
+
+> Đội đã có detection chạy sẵn thì tập trung vào `#7b`.
 
 ## Được nhìn ở đâu
 Trụ **AI** (AIOps): dùng AI/thống kê để vận hành. Chạm **Reliability** (phát hiện sớm giữ SLO) và **Operational Excellence** (giảm thời gian tới lúc biết có sự cố - MTTD).
