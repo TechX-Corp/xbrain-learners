@@ -15,6 +15,13 @@ Hiện muốn biết hệ thống có đang khoẻ hay không, phải có ngư�
 3. **Cảnh báo có ý nghĩa, không spam** - báo theo mức độ ảnh hưởng (ưu tiên triệu chứng user-visible + burn-rate error budget), không phải mỗi cái gợn là kêu.
 4. **Chạy được end-to-end** - bơm một bất thường vào là detector **kêu ra**, nhìn thấy được (alert/log/dashboard). Tuần này chỉ cần **feature chạy thật**, chưa cần số precision/recall chính xác - phần đo đạc để đợt sau.
 
+## Định nghĩa Hoàn thành (DoD - hạn 18/07)
+Không cần phủ hết ~18 service. Tuần này đạt khi:
+1. **Chọn ≥ 3 service trọng yếu** (ưu tiên user-facing / có SLA: frontend, checkout, cart, product-catalog…) - liệt kê rõ đội chọn cái nào và vì sao.
+2. **Mỗi service đó có baseline cho ≥ 1 tín hiệu vàng** (latency **hoặc** error rate) - "bình thường" là khoảng nào.
+3. **Bơm 1 sự cố vào 1 trong các service đó → detector kêu e2e**, nhìn thấy được (alert/log/dashboard).
+> Mở rộng ra nhiều service hơn + nhiều tín hiệu hơn = điểm cao hơn, nhưng 3 service + 1 lần kêu e2e là **sàn đạt**. Số precision/recall để đợt sau.
+
 ## Ràng buộc
 - Không kéo tải/độ trễ hệ thống vì việc thu thập-đo (đo phải nhẹ).
 - Trong ngân sách hiện tại - đừng dựng thêm cụm nặng để "cho oách".
