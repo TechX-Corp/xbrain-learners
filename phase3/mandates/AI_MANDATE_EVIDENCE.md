@@ -9,10 +9,17 @@
 ## Mỗi mandate = 1 ticket (mandate nhiều mốc thì nhiều ticket)
 
 **Tạo ticket:**
-- **Summary:** `[DIRECTIVE #N] <tên mandate>` — ví dụ `[DIRECTIVE #7a] Detection · implement + phân tích`.
+- **Summary (naming — theo đúng format này):**
+  `[DIRECTIVE #N<stage>][<TF>] <tên ngắn>`
+  - `#N` = số mandate, khớp tiêu đề memo (`# [DIRECTIVE #N]`).
+  - `<stage>` = chữ thường `a`/`b`/`c`… khi mandate chia nhiều chặng; **bỏ đi** nếu mandate 1 chặng.
+  - `[<TF>]` = chỉ thêm khi mandate **dành riêng 1 Task Force** (stretch); mandate chung cho mọi TF thì bỏ.
+  - `<tên ngắn>` ≤ ~8 từ, mô tả chặng.
+  - Ví dụ: `[DIRECTIVE #6] AI trust & safety` · `[DIRECTIVE #7a] Detection · implement + phân tích` · `[DIRECTIVE #7b] Detection · chạy thật + đo đạc` · `[DIRECTIVE #11B][TF1] RCA + red-team`.
+- **Label (bắt buộc):** `ai-mandate` **và** `m<N>` (vd `m7`) — để lọc chung + lọc theo từng mandate.
 - **Assignee:** người đại diện nộp. Làm chung nhiều người thì ghi tên đồng đội ở `Description` (không quy trách nhiệm 1 người, nhưng phải có 1 người đứng ra nộp).
 - **Priority:** set theo deadline (mandate đang chạy → High).
-- **Label:** `ai-mandate` (để lọc riêng khỏi ticket vận hành thường).
+- **(nếu board dùng Epic):** 1 Epic cho mỗi mandate, các chặng `a`/`b` là ticket con.
 
 **Evidence dồn vào comment — đủ 4 thứ:**
 1. **Link PR/commit** phần code làm mandate (nối ticket ↔ repo).
@@ -54,10 +61,17 @@ Applies to the **AIO track** (AI directives: #6, #7, …). Mentors grade a manda
 ### One mandate = one ticket (multi-stage mandate = multiple tickets)
 
 **Create the ticket:**
-- **Summary:** `[DIRECTIVE #N] <mandate name>` — e.g. `[DIRECTIVE #7a] Detection · implement + analysis`.
+- **Summary (naming — follow this exact format):**
+  `[DIRECTIVE #N<stage>][<TF>] <short title>`
+  - `#N` = mandate number, matching the memo title (`# [DIRECTIVE #N]`).
+  - `<stage>` = lowercase `a`/`b`/`c`… when the mandate splits into stages; **omit** for single-stage mandates.
+  - `[<TF>]` = add only when the mandate is **for one Task Force** (stretch); omit for all-TF mandates.
+  - `<short title>` ≤ ~8 words describing the stage.
+  - Examples: `[DIRECTIVE #6] AI trust & safety` · `[DIRECTIVE #7a] Detection · implement + analysis` · `[DIRECTIVE #7b] Detection · live run + measurement` · `[DIRECTIVE #11B][TF1] RCA + red-team`.
+- **Label (required):** `ai-mandate` **and** `m<N>` (e.g. `m7`) — for global + per-mandate filtering.
 - **Assignee:** the person submitting. If done by several people, list teammates in `Description` (no single-person blame, but one person owns submission).
 - **Priority:** set by deadline (active mandate → High).
-- **Label:** `ai-mandate` (to filter from routine ops tickets).
+- **(if the board uses Epics):** one Epic per mandate, stages `a`/`b` as child tickets.
 
 **Pile the evidence into a comment — all 4 items:**
 1. **PR/commit link** for the mandate code (ties ticket ↔ repo).
