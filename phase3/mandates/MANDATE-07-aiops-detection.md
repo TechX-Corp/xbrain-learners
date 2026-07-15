@@ -10,7 +10,7 @@
 Hiện muốn biết hệ thống có đang khoẻ hay không, phải có người ngồi mở Grafana soi bằng mắt - nghĩa là sự cố chỉ lộ ra khi khách đã kêu. Với một service có SLA, như vậy là quá muộn. Các bạn có sẵn cả kho telemetry (metric/log/trace) mà chưa có "đôi mắt" tự động nào đọc nó. Nhiệm vụ đợt này: dựng đôi mắt đó - hệ tự phát hiện bất thường và báo, trước khi user phản ánh.
 
 ## Yêu cầu
-1. **Phát hiện bất thường đa tín hiệu** - không chỉ ngưỡng tĩnh: bắt được bất thường trên latency / error rate / saturation / queue / cost… dựa trên telemetry thật đang chảy.
+1. **Phát hiện bất thường trên nhiều tín hiệu** - không chỉ ngưỡng tĩnh: theo dõi latency / error rate / saturation / queue / cost… dựa trên telemetry thật. **Sàn = univariate**: mỗi *service × 1 tín hiệu* có baseline + luật bất thường riêng. Gộp nhiều tín hiệu lại thành một mô hình chung (**multivariate / tương quan**) là **bonus**, không bắt buộc.
 2. **Có baseline "biết thế nào là bình thường"** - lập baseline theo từng service để không báo nhầm vào lúc tải cao bình thường.
 3. **Cảnh báo có ý nghĩa, không spam** - báo theo mức độ ảnh hưởng (ưu tiên triệu chứng user-visible + burn-rate error budget), không phải mỗi cái gợn là kêu.
 4. **Chạy được end-to-end** - bơm một bất thường vào là detector **kêu ra**, nhìn thấy được (alert/log/dashboard). Phần chạy thật + đo đạc nộp ở chặng sau (#7b); chặng đầu (#7a) chỉ cần implement + phân tích.
@@ -36,7 +36,8 @@ Nộp qua **2 Jira ticket** riêng (cách ghi evidence xem `AI_MANDATE_EVIDENCE.
   - **ADR ký tên.**
 - **`[DIRECTIVE #7b]` Detection · chạy thật + đo đạc — hạn T7 25/07**
   - **Ảnh/log detector kêu e2e** khi bơm 1 sự cố (mentor tự bật hoặc bơm qua flagd) + cách chạy lại.
-  - **Số precision/recall/lead-time** đo được + **cảnh báo theo mức ảnh hưởng** (burn-rate, không spam) + mở rộng thêm service.
+  - **Số precision/recall/lead-time** đo trên **một bộ sự cố có nhãn** (mentor bơm K sự cố + có giai đoạn bình thường), KHÔNG phải per-service: recall = bắt được / K; precision = lần kêu đúng / tổng lần kêu; lead-time = từ lúc sự cố bắt đầu tới lúc kêu.
+  - **Cảnh báo theo mức ảnh hưởng** (burn-rate, không spam) + mở rộng thêm service.
 
 > Đội đã có detection chạy sẵn thì làm gọn `#7a` và tập trung vào `#7b`.
 
