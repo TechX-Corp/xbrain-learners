@@ -32,7 +32,7 @@ Một mandate có thể có nhiều chặng, mỗi chặng 1 ticket + 1 deadline
 
 | Ticket | Nội dung | Chấm kiểu | Hạn |
 |---|---|---|---|
-| `[DIRECTIVE #7a]` | implement (link PR) + phân tích chọn ≥3 service/baseline/phương pháp | như **doc** — chưa cần chạy thật | T7 18/07 |
+| `[DIRECTIVE #7a]` | implement (link PR) + phân tích **≥3 metrics** (mỗi metric: baseline/ngưỡng bất thường) + phương pháp | như **doc** — chưa cần chạy thật | T7 18/07 |
 | `[DIRECTIVE #7b]` | chạy thật e2e (**ảnh alert**) + số precision/recall + alert theo mức ảnh hưởng | **bằng chứng chạy được** | T7 25/07 |
 
 Đội đã có sẵn phần đầu thì làm gọn `#7a`, tập trung `#7b`.

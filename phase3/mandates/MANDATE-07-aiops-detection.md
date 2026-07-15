@@ -18,7 +18,7 @@ Hiện muốn biết hệ thống có đang khoẻ hay không, phải có ngư�
 ## Định nghĩa Hoàn thành cho #7a (hạn 18/07) — implement + phân tích
 Không cần chạy thật tuần này. Đạt khi trong Jira thể hiện được:
 1. **Đã bắt tay implement** detector + baseline (link PR/commit cho thấy code có thật).
-2. **Phân tích (dạng doc trong ticket):** chọn **≥ 3 service trọng yếu** nào + vì sao (ưu tiên user-facing / có SLA: frontend, checkout, cart, product-catalog…); baseline mỗi service (1 tín hiệu vàng latency/error rate + khoảng "bình thường"); phương pháp phát hiện định dùng.
+2. **Phân tích (dạng doc trong ticket):** chọn **≥ 3 metrics** từ (các) service trọng yếu (vd p95 latency của checkout, error-rate của cart, saturation của product-catalog…); với **mỗi metric**: vì sao chọn, baseline "bình thường" là khoảng nào, thế nào thì coi là bất thường; phương pháp phát hiện định dùng.
 3. **ADR ký tên.**
 > Chạy thật e2e + ảnh alert minh chứng + số precision/recall để chặng **#7b** (25/07).
 
@@ -32,7 +32,7 @@ Nộp qua **2 Jira ticket** riêng (cách ghi evidence xem `AI_MANDATE_EVIDENCE.
 
 - **`[DIRECTIVE #7a]` Detection · implement + phân tích — hạn T7 18/07** *(chấm như doc, chưa cần chạy thật)*
   - **Link PR/commit** cho thấy đã implement detector + baseline.
-  - **Phân tích trong ticket:** ≥ 3 service đã chọn + vì sao; baseline mỗi service (tín hiệu vàng + khoảng bình thường); phương pháp phát hiện.
+  - **Phân tích trong ticket:** **≥ 3 metrics** đã chọn (từ service trọng yếu) + với mỗi metric: vì sao chọn, baseline "bình thường", ngưỡng bất thường; phương pháp phát hiện.
   - **ADR ký tên.**
 - **`[DIRECTIVE #7b]` Detection · chạy thật + đo đạc — hạn T7 25/07**
   - **Ảnh/log detector kêu e2e** khi bơm 1 sự cố (mentor tự bật hoặc bơm qua flagd) + cách chạy lại.
