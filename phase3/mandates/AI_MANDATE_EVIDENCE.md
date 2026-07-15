@@ -9,7 +9,7 @@
 ## Mỗi mandate = 1 ticket (mandate nhiều mốc thì nhiều ticket)
 
 **Tạo ticket:**
-- **Summary:** `[DIRECTIVE #N] <tên mandate>` — ví dụ `[DIRECTIVE #7a] Detection · baseline + e2e`.
+- **Summary:** `[DIRECTIVE #N] <tên mandate>` — ví dụ `[DIRECTIVE #7a] Detection · implement + phân tích`.
 - **Assignee:** người đại diện nộp. Làm chung nhiều người thì ghi tên đồng đội ở `Description` (không quy trách nhiệm 1 người, nhưng phải có 1 người đứng ra nộp).
 - **Priority:** set theo deadline (mandate đang chạy → High).
 - **Label:** `ai-mandate` (để lọc riêng khỏi ticket vận hành thường).
@@ -40,3 +40,44 @@ Một mandate có thể có nhiều chặng, mỗi chặng 1 ticket + 1 deadline
 ---
 
 > Nguyên tắc gốc (từ `JIRA_EXPORT.md`): **thứ gì không để lại dấu vết trong Jira/repo thì coi như không có.** Mandate AI thêm một điều: **phải có bằng chứng chạy được**, không chỉ link code.
+
+---
+
+## English
+
+# Submitting AI mandate evidence via Jira
+
+Applies to the **AIO track** (AI directives: #6, #7, …). Mentors grade a mandate **from the Jira ticket** — no ticket, or a ticket with no working evidence, counts as not done.
+
+> Teams outside the AI track submit via `JIRA_EXPORT.md` as usual.
+
+### One mandate = one ticket (multi-stage mandate = multiple tickets)
+
+**Create the ticket:**
+- **Summary:** `[DIRECTIVE #N] <mandate name>` — e.g. `[DIRECTIVE #7a] Detection · implement + analysis`.
+- **Assignee:** the person submitting. If done by several people, list teammates in `Description` (no single-person blame, but one person owns submission).
+- **Priority:** set by deadline (active mandate → High).
+- **Label:** `ai-mandate` (to filter from routine ops tickets).
+
+**Pile the evidence into a comment — all 4 items:**
+1. **PR/commit link** for the mandate code (ties ticket ↔ repo).
+2. **How to reproduce (repro):** command/script for the mentor to re-run — e.g. `make detect-demo`, or "inject flagd X → see the alert at …".
+3. **Proof it runs:** screenshot/log showing the feature **running end-to-end** (detector fires / guardrail blocks / loop rollback… depending on the mandate).
+4. **Signed ADR link** — method chosen, trade-offs.
+
+**Close the ticket** when all 4 are present, **before the deadline**. Missing item 3 (working proof) → the mentor leaves the ticket open, asks back, and it **does not count** even if the code exists.
+
+> Some stages are deliberately graded **as a doc** (implement + analysis, no live run yet) — e.g. `#7a`. For those, item 3 is replaced by the **analysis written in the ticket**; the live-run deadline falls in the later stage.
+
+### Multi-stage mandate → multiple tickets
+
+A mandate can have several stages, each its own ticket + deadline. Example **#7 (detection)**:
+
+| Ticket | Content | Grading style | Due |
+|---|---|---|---|
+| `[DIRECTIVE #7a]` | implement (PR link) + analysis of **≥3 metrics** (each: baseline/anomaly threshold) + method | as a **doc** — no live run yet | Sat 18/07 |
+| `[DIRECTIVE #7b]` | live e2e run (**alert screenshot**) + precision/recall + impact-based alerting | **working proof** | Sat 25/07 |
+
+Teams that already have the first part can keep `#7a` light and focus on `#7b`.
+
+> Root principle (from `JIRA_EXPORT.md`): **anything that leaves no trace in Jira/repo counts as nonexistent.** AI mandates add one more: **you must show working proof**, not just a code link.
