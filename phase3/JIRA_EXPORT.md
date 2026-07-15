@@ -22,19 +22,16 @@ Kiểm nhanh trên board, sửa những chỗ này trước khi export:
 
 > ⚠️ **Bước quan trọng nhất.** Phải chọn **all fields**, KHÔNG chọn **current fields** — `current fields` chỉ xuất mấy cột đang hiện trên màn hình, thiếu `Description`, `Comment` (mất luôn link GitHub em dán), `Priority`… và file đó chấm không được.
 
-**Cách vào** (thử một trong hai, cái nào có nút Export là được):
-- Trong project của nhóm → mục **Issues** (danh sách tất cả ticket), **hoặc**
-- Thanh trên cùng → **Filters → View all issues** (search toàn cục).
+1. Sidebar bên trái → **Filters** → **Search work items**. Trang **"All work"** (danh sách tất cả ticket) mở ra.
+2. Ô tìm kiếm, bấm chế độ **JQL** rồi gõ: `project = <mã nhóm>` (ví dụ `project = SCRUM`).
+   Muốn giữ thứ tự thì thêm `ORDER BY created DESC`. Bấm **Enter** để lọc.
+3. Góc **trên cùng bên phải** → nút **`...`** (ba chấm, nằm sau nút *Share*) → chọn **Export CSV (all fields)**.
+   (Nếu trong `...` không thấy, thử nút **`Apps ▾`** ngay cạnh đó.)
+4. File `.csv` tải về.
 
-**Rồi:**
-1. Ô tìm kiếm/JQL gõ: `project = <mã nhóm>` (ví dụ `project = CDO08`).
-   Nếu board có sắp thứ tự ưu tiên, thêm `ORDER BY Rank ASC` để giữ đúng thứ tự — nếu Jira báo lỗi field `Rank` thì bỏ đoạn đó đi, không sao.
-2. Góc trên bên phải → nút **Export** → chọn **Export CSV (all fields)** (có thể ghi là *Export Excel CSV (all fields)* — chọn cái có chữ **all fields**).
-3. File `.csv` tải về.
+> Không thấy nút export? Báo lại — có thể tài khoản em thiếu quyền, để PM hoặc admin nhóm export giúp.
 
-> Không thấy nút Export? Thử đường còn lại ở trên. Nếu vẫn không có, báo lại — có thể tài khoản em thiếu quyền, PM hoặc admin nhóm export giúp.
-
-Jira Cloud cho export tới 10.000 ticket một lần, nên một nhóm vài chục ticket thì thoải mái.
+Jira cho export tới 10.000 ticket một lần, nên một nhóm vài chục ticket thì thoải mái.
 
 ---
 
