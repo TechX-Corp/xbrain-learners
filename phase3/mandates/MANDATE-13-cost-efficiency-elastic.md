@@ -20,8 +20,6 @@ Finance soi lại hoá đơn AWS và thấy phần lớn tiền đổ vào **EC2
 4. **Đủ tín hiệu để scheduler quyết đúng.** Set request "vừa đủ" cho các service để HPA/autoscaler ra quyết định chuẩn - **không cần rightsize hoàn hảo từng pod**, chỉ cần đủ để scale hoạt động đúng, không bị chèn hay OOM.
 5. **Đo được, so được (bằng console, không cần viết script).** Chứng minh trên cùng đường cong tải: **giờ-node cho cùng lượng tải giảm ≥ 30%** so baseline, **spot ≥ 50%**, có **Graviton**, và cluster **co xuống thật** lúc tải giảm - trong khi SLO vẫn giữ (checkout ≥ 99%, browse/cart ≥ 99.5%, storefront p95 < 1s). Đọc thẳng từ 3 màn hình ở phần **Cách đo & nộp**.
 
-> **Bonus (đua top):** thêm **Graviton (arm64)** cho phần build được image arm64 để rẻ thêm; hoặc cache hot-path (product-catalog/recommendation) để giảm cả latency lẫn cost/req.
-
 ## Ràng buộc
 - **Không hạ SLO để lấy cost** - rẻ mà rớt khách là fail.
 - **Không giữ SLO bằng cách bơm on-demand cho chắc** - phải thật sự rẻ hơn baseline, không phải quăng tiền mua node rồi khoe SLO đẹp.
