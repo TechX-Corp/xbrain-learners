@@ -1,7 +1,7 @@
 # [DIRECTIVE #18] Hoá đơn ẩn - cắt tiền ngoài node compute
 
 **Từ:** Ban Sản phẩm & Tài chính - TechX Corp
-**Hiệu lực:** khi nhận · hoàn tất & nộp trước **hết ngày 21/07/2026**
+**Hiệu lực:** khi nhận · hoàn tất & nộp trước **hết ngày 22/07/2026**
 **Áp dụng:** toàn bộ Task Force (phần CDO)
 
 ---

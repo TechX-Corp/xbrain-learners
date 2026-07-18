@@ -1,7 +1,7 @@
 # [DIRECTIVE #19] Biết trần của mình - và nâng trần bằng hiệu suất
 
 **Từ:** Ban Vận hành (SRE) - TechX Corp
-**Hiệu lực:** khi nhận · hoàn tất & nộp trước **hết ngày 21/07/2026**
+**Hiệu lực:** khi nhận · hoàn tất & nộp trước **hết ngày 22/07/2026**
 **Áp dụng:** toàn bộ Task Force (phần CDO)
 
 ---
