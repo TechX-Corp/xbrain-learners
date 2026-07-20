@@ -18,7 +18,15 @@ Sự cố nổ nửa đêm mà chờ người dậy xử thì khách đã chịu
 
 "Cách làm tự chọn; đã đạt thì chỉ cần chứng minh."
 
+## Định nghĩa Hoàn thành (DoD - hạn 25/07)
+Không cần phủ mọi loại sự cố. Đạt khi:
+1. **Chọn ≥ 1 loại sự cố cụ thể** (vd một fault bơm qua flagd) mà hệ **tự dập được end-to-end**: detect → safety check (dry-run/blast-radius) → act → verify bằng telemetry thật.
+2. **Nhánh rollback chạy được** - ép một hành động sai (hoặc verify fail) → hệ **tự lùi/escalate**, thấy được trong log.
+3. **Audit log** cho lần tự dập đó: trigger → action → kết quả verify → có lùi không.
+> Mở rộng nhiều loại sự cố + MTTR before/after = điểm cao hơn; 1 loại chạy e2e an toàn + 1 lần rollback là **sàn đạt**.
+
 ## Ràng buộc
+- **Phải do AIOps của đội điều khiển:** hành động dập kích hoạt **từ detector của các bạn** (nối tiếp #7), có quyết định + verify + rollback + audit của chính đội. **k8s tự restart pod / HPA sẵn có KHÔNG được tính** là closed-loop.
 - Giữ SLO/ngân sách; không đụng / vô hiệu hóa flagd; không hạ chuẩn để qua bài.
 
 ## Phải nộp (artifact)
@@ -58,7 +66,15 @@ An incident that fires at midnight and waits for a human to wake up costs the cu
 
 "Method is your choice; if the property holds, just prove it."
 
+## Definition of Done (DoD - due 25/07)
+No need to cover every incident type. Done when:
+1. **Pick ≥ 1 concrete incident type** (e.g. one fault injected via flagd) the system **auto-mitigates end-to-end**: detect → safety check (dry-run/blast-radius) → act → verify with real telemetry.
+2. **A working rollback branch** - force one wrong action (or a verify failure) → the system **auto-reverts/escalates**, visible in the log.
+3. **Audit log** for that mitigation: trigger → action → verify result → whether it rolled back.
+> Covering more incident types + MTTR before/after = higher score; one type running e2e safely + one rollback is the **floor**.
+
 ## Constraints
+- **Must be driven by your AIOps:** the mitigating action is triggered **by your own detector** (building on #7), with your team's own decision + verify + rollback + audit. **k8s native pod-restart / HPA does NOT count** as closed-loop.
 - Hold SLO/budget; do not touch or disable flagd; do not lower the bar to pass.
 
 ## Deliverables (artifact)
