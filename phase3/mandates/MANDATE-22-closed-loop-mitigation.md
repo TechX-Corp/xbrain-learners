@@ -1,7 +1,7 @@
 # [DIRECTIVE #22] Hệ phải tự dập được sự cố một cách an toàn
 
 **Từ:** Ban Vận hành (SRE) & AI - TechX Corp
-**Hiệu lực:** ngay khi nhận · hoàn tất & nộp trước **thứ Bảy [chốt lúc thả]**
+**Hiệu lực:** ngay khi nhận · hoàn tất & nộp trước **thứ Bảy 25/07/2026**
 **Áp dụng:** nhóm AIO của mọi Task Force
 
 ---
@@ -49,7 +49,7 @@ Trụ **AI** (AIOps). Chạm **Reliability** + **Operational Excellence**.
 # [DIRECTIVE #22] The system must safely auto-mitigate incidents
 
 **From:** Operations (SRE) & AI Board - TechX Corp
-**Effective:** immediately on receipt · complete & submit before **Saturday [set at release]**
+**Effective:** immediately on receipt · complete & submit before **Saturday 25/07/2026**
 **Applies to:** the AIO team of every Task Force
 
 ---
